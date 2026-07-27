@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        h1 {
+            background-color: rgba(255, 255, 255, 0.89);
+            width: 100%;
+            color: hwb(0 95% 4%);
+            text-align: center;
+            font-size: 50px;
+            }
+        h2{
+            color: #f3e7e7;
+            font-size: 45px;
+            text-align: center;
+        }    
+        .main{
+            height: 470px;
+            width: 660px;
+            background-color: rgba(29, 27, 46, 0.333);
+            border-radius: 500;
+            margin-top:10% ;
+            margin-left: 31%;
+            }
+        .main img{
+            width: 80px;
+            background-color: #fff;
+            
+            position: absolute;
+            top: 155px;
+            left: 48%;
+            transform: translateX(50%);
+            }    
+        input{
+                height: 30px;
+                width: 250px;
+                margin-top: 5%;
+                margin-left: 30%;
+                margin-bottom: 0%; 
+                border-radius: 15px;
+                box-shadow: 0 3px 5px rgba(255, 255, 255, 0.959); 
+            }
+
+        button{
+            background-color: #d22d1b;         
+            color: #ffffff;  
+            border: none;       
+            width: 60% ;
+            padding: 10px;                
+            border-radius: 15px;                
+            cursor: pointer;                   
+            box-shadow: 0 4px 6px rgba(255, 255, 255, 0.959); 
+            margin-left: 22%;
+            margin-top: 10%;
+            }     
+    </style>
+</head>
+<body style="background-image: url('{{ url_for('static', filename='images/Indian Railway1.jpg') }}');
+background-size: cover; 
+background-position: top center ; 
+background-repeat: no-repeat; 
+margin: 0">
+<div class="main">
+    <img src="{{ url_for('static', filename='images/lock.jpg') }}" alt="lock icon" width="40" height="55">
+    <h1>.</h1>
+    <h2>Admin Login</h2>
+
+        <div class="alert"></div>
+
+    <form method="POST" action="/login">
+        <input type="text" name="username" placeholder="Username" required><br>
+        <input type="password" name="password" placeholder="Password" required><br>
+        <button type="submit">Login</button>
+    </form>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</div>
+</body>
+</html>

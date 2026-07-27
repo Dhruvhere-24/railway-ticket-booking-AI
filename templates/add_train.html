@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add New Train</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        .main{
+            height: 610px;
+            width: 660px;
+            background-color: rgba(156, 139, 139, 0.508);
+            margin-top:6% ;
+            margin-left: 30%;
+            }
+
+        h1 {
+            background-color: rgba(0, 0, 1, 0.874);
+            width: 100%;
+            color: hwb(180 96% 0%);
+            text-align: center;
+            font-size: 50px;
+            }
+
+        h2 {
+            background-color: rgba(0, 0, 1, 0.674);
+            color: hwb(180 96% 0%);
+        }   
+
+        input{
+            background-color: rgba(225, 212, 212, 0.833);
+            color: hwb(0 0% 100%);
+            font-size: 95%;
+            height: 30px;
+            width: 376px;
+            margin-left: 15%;
+            margin-bottom: none;
+            }
+
+        button{
+            background-color: #d22d1b;         
+            color: #ffffff;  
+            border: none;       
+            padding: 10px 70px;                
+            border-radius: 10px;                
+            font-size: 20px;                   
+            cursor: pointer;                   
+            box-shadow: 0 4px 6px rgba(255, 255, 255, 0.959); 
+            margin-left: 30%;
+            }
+
+    </style>
+</head>
+
+
+<body style="background-image: url('{{ url_for('static', filename='images/Indian Railway1.jpg') }}'); 
+background-size: cover;
+background-position: top center ; 
+background-repeat: no-repeat; 
+margin: 20">
+
+<div class="main"> 
+    <h1>Add New Train</h1>
+    <form method="POST" action="/admin/add_train">
+        <h2>&nbsp;&nbsp;Train Number&nbsp;&nbsp;&nbsp;<input type="text" name="number" required></h2><br>
+        <h2>&nbsp;&nbsp;Train Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="name" required></h2><br>
+        <h2>&nbsp;&nbsp;Departure Time<input type="time" name="departure" required></h2><br>
+        <h2>&nbsp;&nbsp;Arrival Time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="time" name="arrival" required></h2><br>
+        <h2>&nbsp;&nbsp;Operating data&nbsp;<input type="text" name="days" required></h2><br>
+        <button type="submit">Add Train</button><br>
+    </form>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</div>
+</body>
+</html>

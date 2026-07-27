@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head> 
+    <title> 
+        Admin Panel 
+    </title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+    h1 {
+    background-color: rgba(0, 0, 1, 0.618);
+    width: 100%;
+    margin-top: 0.5%;
+    color: hwb(180 98% 0%);
+    text-align: left;
+    font-size: 50px;
+}
+button {
+    background-color: #d22d1b;         
+    color: #ffffff;  
+    border: none;       
+    padding: 10px 30px;                
+    border-radius: 10px;                
+    font-size: 16px;                   
+    cursor: pointer;                   
+    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.959); 
+}
+   .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .header h1 {
+        margin: 0;
+    }
+
+    .menu a {
+        text-decoration: none;
+        margin-left: 10px;
+    }
+
+    .menu button {
+        padding: 8px 16px;
+        border: none;
+        background-color: #007BFF;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .menu button:hover {
+        background-color: #0056b3;
+    }
+    </style> 
+</head>
+<body style="background-image: url('{{ url_for('static', filename='images/Indian Railway1.jpg') }}');
+            background-size: cover; 
+            background-position: top center ; 
+            background-repeat: no-repeat; 
+            margin: 0">
+<div class="header">
+    <h1>Welcome</h1>
+    <div class="menu">
+        <a href="/admin/add_train"><button>Add New Train</button></a>
+        <a href="/timetable"><button>View Timetable</button></a>
+        <a href="/logout"><button>Logout</button></a>
+    </div>
+</div>
+        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+        
+        
+    </body>
+</html>

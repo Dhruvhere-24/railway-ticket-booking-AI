@@ -1,0 +1,152 @@
+/* Reset and global settings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Background and layout */
+body {
+    background: linear-gradient(135deg, #f2f2f2, #e6e6e6);
+    min-height: 100vh;
+    padding-top: 60px;
+}
+
+/* Stylish animated top line */
+.line {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 5px;
+    background: linear-gradient(to right, #00c6ff, #0072ff);
+    box-shadow: 0 0 10px #0072ff, 0 0 20px #00c6ff;
+    z-index: 9999;
+    transition: width 1.5s ease-in-out;
+}
+
+.line.animate {
+    width: 100%;
+}
+
+/* Container for content */
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 30px;
+    background-color: #ffffffec;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading styling */
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px;
+}
+
+/* Buttons and links */
+a, button {
+    text-decoration: none;
+    /* background-color: #007bff;  Remove this after completion */
+    color: white;
+    /* padding: 10px 20px; */
+    border-radius: 8px;
+    margin: 5px;
+    /* display: inline-block; */
+    transition: background 0.3s ease;
+}
+
+body > h1 {
+    color: #f7fbff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.75);
+}
+
+.menu button {
+    display: block;
+    min-height: 48px;
+    padding: 10px 20px;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+a:hover, button:hover {
+    background-color: #0056b3;
+    cursor: pointer;
+}
+
+/* Form styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input, select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border 0.3s ease;
+}
+
+input:focus, select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    tr {
+        margin-bottom: 15px;
+    }
+
+    td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        width: 45%;
+        padding-right: 10px;
+        text-align: left;
+        font-weight: bold;
+    }
+}

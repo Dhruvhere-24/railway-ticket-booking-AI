@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Railway Reservation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body.home-page { background-image: url('{{ url_for('static', filename='images/img1.PNG') }}'); background-size: cover; background-position: top center; background-repeat: no-repeat; margin: 0; padding-top: 0; }
+        .home-page > h1 { width: 100%; padding: 18px 12px; color: #f7fbff; background: rgba(2, 2, 19, .9); text-align: center; font-size: clamp(28px, 5vw, 50px); text-shadow: 0 2px 4px rgba(0, 0, 0, .75); }
+        .main { width: min(660px, calc(100% - 32px)); min-height: 420px; margin: 3.5% auto 0; padding: 42px 20px; background-color: rgba(249, 246, 246, .72); border-radius: 12px; }
+        .menu a { display: block; width: 60%; margin: 0 auto; }
+        .menu button { display: block; width: 100%; min-height: 48px; padding: 10px 20px; color: #fff; background: #087fbd; border: 0; border-radius: 12px; font-size: 18px; font-weight: 600; line-height: 1.2; cursor: pointer; }
+        #chat-box { position: fixed; right: 20px; bottom: 20px; z-index: 9999; width: 65px; height: 65px; display: grid; place-items: center; color: #fff; background: linear-gradient(135deg, #0073e1, #4facfe); border-radius: 50%; font-size: 30px; cursor: pointer; }
+        #chat-popup { position: fixed; right: 20px; bottom: 90px; z-index: 9999; width: min(360px, calc(100% - 40px)); height: 520px; display: none; flex-direction: column; overflow: hidden; background: #f7fbff; border-radius: 14px; box-shadow: 0 8px 24px rgba(0, 0, 0, .3); }
+        .chat-header { padding: 14px; color: #fff; background: #0073e1; font-weight: bold; }
+        .chat-messages { flex: 1; padding: 10px; overflow-y: auto; }
+        .ai-msg, .user-msg { width: fit-content; max-width: 80%; margin: 8px 0; padding: 10px 14px; border-radius: 12px; }
+        .ai-msg { color: #000; background: #fff; }
+        .ai-msg * { color: #000; }
+        .ai-msg p { margin: 0 0 8px; }
+        .ai-msg p:last-child { margin-bottom: 0; }
+        .ai-msg ul, .ai-msg ol { margin: 6px 0; padding-left: 22px; }
+        .ai-msg h1, .ai-msg h2, .ai-msg h3, .ai-msg h4 { margin: 8px 0; font-size: 16px; }
+        .ai-msg code { padding: 2px 4px; background: #edf3f8; border-radius: 4px; }
+        .ai-msg pre { max-width: 100%; overflow-x: auto; padding: 8px; background: #edf3f8; border-radius: 8px; }
+        .ai-msg a { color: #000; text-decoration: underline; }
+        .user-msg { margin-left: auto; color: #fff; background: #7158f5; }
+        .chat-input-area { display: flex; gap: 8px; padding: 10px; background: #e3f2fd; }
+        .chat-input-area input { min-width: 0; flex: 1; padding: 8px; border: 1px solid #bcd; border-radius: 8px; }
+        .chat-input-area button { padding: 8px 12px; color: #fff; background: #0073e1; border: 0; border-radius: 8px; cursor: pointer; }
+    </style>
+</head>
+<body class="home-page">
+    <div id="chat-box" aria-label="Open chat">&#129302;</div>
+    <div id="chat-popup">
+        <div class="chat-header">Chat AI</div>
+        <div class="chat-messages" id="chat-messages"><div class="ai-msg">AI: How can I help you?</div></div>
+        <div class="chat-input-area"><input type="text" id="user-input" placeholder="Type your message..."><button id="send-btn" type="button">Send</button></div>
+    </div>
+
+    <h1>Welcome to Indian Railway Reservation System</h1>
+    <main class="main">
+        <nav class="menu" aria-label="Railway reservation menu">
+            <a href="/book"><button type="button">Book Ticket</button></a><br><br>
+            <a href="/bookings"><button type="button">View Bookings</button></a><br><br>
+            <a href="/cancel"><button type="button">Cancel Ticket</button></a><br><br>
+            <a href="/timetable"><button type="button">View Timetable</button></a><br><br>
+            <a href="/login"><button type="button">Admin Login</button></a>
+        </nav>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <!-- Markdown + App JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js" defer></script>
+    <script>
+        const popup = document.getElementById("chat-popup");
+        const box = document.getElementById("chat-box");
+        const messages = document.getElementById("chat-messages");
+        const input = document.getElementById("user-input");
+        const sendButton = document.getElementById("send-btn");
+
+        function renderMarkdown(element, markdown) {
+            if (window.marked && window.DOMPurify) {
+                element.innerHTML = DOMPurify.sanitize(marked.parse(markdown));
+            } else {
+                element.textContent = markdown;
+            }
+        }
+
+        box.addEventListener("click", () => { popup.style.display = popup.style.display === "flex" ? "none" : "flex"; });
+        sendButton.addEventListener("click", async () => {
+            const text = input.value.trim();
+            if (!text) return;
+            const userMessage = document.createElement("div");
+            userMessage.className = "user-msg";
+            userMessage.textContent = text;
+            messages.appendChild(userMessage);
+            input.value = "";
+            try {
+                const response = await fetch("/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ message: text }) });
+                const data = await response.json();
+                const aiMessage = document.createElement("div");
+                aiMessage.className = "ai-msg";
+                renderMarkdown(aiMessage, data.response || "No response received.");
+                messages.appendChild(aiMessage);
+                messages.scrollTop = messages.scrollHeight;
+            } catch (error) {
+                const errorMessage = document.createElement("div");
+                errorMessage.className = "ai-msg";
+                errorMessage.textContent = "Server Error";
+                messages.appendChild(errorMessage);
+                console.error(error);
+            }
+        });
+        input.addEventListener("keypress", (event) => { if (event.key === "Enter") sendButton.click(); });
+    </script>
+</body>
+</html>

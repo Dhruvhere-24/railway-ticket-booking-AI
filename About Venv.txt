@@ -1,0 +1,5 @@
+run on Powershell {
+    create evn : & "C:\my installations here\python 3.12\python.exe" -m venv <virtual env name>
+    activate : .\rail_ai\Scripts\Activate.ps1
+}
+if not activate : (Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned) ; (& "c:\my installations here\py program\rail AI\rail_ai\Scripts\Activate.ps1")

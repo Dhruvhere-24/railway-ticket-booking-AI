@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Ticket</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        body {
+            background-image: url('Train 1.jpg');
+            background-size: cover;
+            background-position: top center;
+            background-repeat: no-repeat;
+            margin: 20px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .main{
+            height: auto;
+            width: 660px;
+            background-color: rgba(215, 208, 208, 0.508);
+            margin-top:5% ;
+            margin-left: 30%;
+            padding: 0px;
+            border-radius: 15px;
+            }
+
+        h1 {
+            background-color: rgba(0, 0, 1, 0.774);
+            color: hwb(180 96% 0%);
+            text-align: center;
+            font-size: 50px;
+            margin-bottom: 30px;
+            padding: 10px 0;
+            border-radius: 10px;
+            }  
+
+        input{
+            background-color: rgba(225, 212, 212, 0.833);
+            color: hwb(0 0% 100%);
+            font-size: 95%;
+            height: 40px;
+            width: 394px;
+            margin-left: 15%;
+            margin-bottom: none;
+
+            }
+         select{
+            background-color: rgba(225, 212, 212, 0.833);
+            color: hwb(0 0% 100%);
+            font-size: 95%;
+            height: 40px;
+            width: 394px;
+            margin-left: 15%;
+            margin-bottom: none;
+           
+            }       
+        
+        h2 {
+            background-color: rgba(0, 0, 1, 0.674);
+            color: hwb(180 96% 0%);
+        }      
+
+        button{
+            background-color: #d22d1b;         
+            color: #ffffff;  
+            border: none;       
+            padding: 10px 70px;                
+            border-radius: 10px;                
+            font-size: 20px;                   
+            cursor: pointer;                   
+            box-shadow: 0 4px 6px rgba(255, 255, 255, 0.959); 
+            margin-left: 30%;
+            }     
+    </style>
+</head>
+<body style="background-image: url('{{ url_for('static', filename='images/img3.PNG') }}'); 
+background-size: cover;
+background-position: top center ; 
+background-repeat: no-repeat; 
+margin: 20">
+<div class="main">
+        <h1 style="text-align: center;">Book Your Ticket</h1>
+        <form method="POST" action="/book" style="padding: 20px;">
+
+            <h2>Name:</h2>
+            <input type="text" name="name" required style="width: 120; padding: 10px;"><br><br>
+
+            <h2>Age:</h2>
+            <input type="number" name="age" required style="width: 120; padding: 10px;"><br><br>
+
+            <h2>Gender:</h2>
+            <select name="gender" required style="width: 120; padding: 10px;">
+                <option disabled selected>Select Gender</option>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+            </select><br><br>
+
+            <h2>Select Train:</h2>
+            <select name="train_id" required style="width: 120; padding: 10px;">
+                {% for train in trains %}
+                    <option value="{{ train.id }}">{{ train.number }} - {{ train.name }}</option>
+                {% endfor %}
+            </select><br><br>
+
+            <h2>Travel Date:</h2>
+            <input type="date" name="date" required style="width: 150px; padding: 10px;">
+
+            <button type="submit" style="padding: 10px 30px; font-size: 16px;">Book Ticket</button>
+        </form>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>
